@@ -1,0 +1,42 @@
+name: Build frp Windows
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      # environment
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Setup Go environment
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+      - run: go version
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          install: >-
+            coreutils
+            curl
+            diffutils
+            gawk
+            gcc
+            make
+      - name: Compile frp
+        run: make
+
+      - name: Rename Artifacts
+        run: |
+              cd bin/
+              mv frpc frpc.exe
+              mv frps frps.exe
+      - name: Upload Artifacts of frpc and frps
+        uses: actions/upload-artifact@v3
+        with:
+          name: frp_win
+          path: bin/
