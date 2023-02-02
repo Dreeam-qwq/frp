@@ -31,7 +31,7 @@ import (
 	"github.com/fatedier/golib/crypto"
 	libdial "github.com/fatedier/golib/net/dial"
 	fmux "github.com/hashicorp/yamux"
-	quic "github.com/lucas-clemente/quic-go"
+	quic "github.com/quic-go/quic-go"
 
 	"github.com/fatedier/frp/assets"
 	"github.com/fatedier/frp/pkg/auth"
@@ -114,8 +114,8 @@ func (svr *Service) Run() error {
 	// set custom DNSServer
 	if svr.cfg.DNSServer != "" {
 		dnsAddr := svr.cfg.DNSServer
-		if !strings.Contains(dnsAddr, ":") {
-			dnsAddr += ":53"
+		if _, _, err := net.SplitHostPort(dnsAddr); err != nil {
+			dnsAddr = net.JoinHostPort(dnsAddr, "53")
 		}
 		// Change default dns server for frpc
 		net.DefaultResolver = &net.Resolver{
