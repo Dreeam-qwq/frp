@@ -1,7 +1,6 @@
 name: Build frp Windows
 
-on:
-  push:
+on: [push]
 
 jobs:
   build:
