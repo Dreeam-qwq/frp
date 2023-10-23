@@ -8,16 +8,17 @@ jobs:
     steps:
       # environment
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
         with:
           fetch-depth: '0'
       - name: Setup Go environment
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@main
         with:
           go-version: 1.21
+          check-latest: true
       - run: go version
 
-      - uses: msys2/setup-msys2@v2
+      - uses: msys2/setup-msys2@main
         with:
           install: >-
             coreutils
@@ -35,7 +36,7 @@ jobs:
               mv frpc frpc.exe
               mv frps frps.exe
       - name: Upload Artifacts of frpc and frps
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@main
         with:
           name: frp_win
           path: bin/
