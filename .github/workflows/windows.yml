@@ -40,7 +40,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@master
         with:
           title: "frp_win"
-          automatic_release_tag: "frp"
+          automatic_release_tag: "build_frp"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: "bin/"
           prerelease: false
