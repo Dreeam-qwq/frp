@@ -43,4 +43,4 @@ jobs:
           automatic_release_tag: "build_frp"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: "bin/"
-          prerelease: false
+          prerelease: true
